@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id='playing'>
+		<div class="row">
+			<% movies.forEach(function(movie){ %>
+					<div class="col-md-4 column ui-sortable">
+						<div class="thumbnail">
+							<img src="<%= movie.image_url %>">
+							<a class="caption" href="/detail/<%= %>" target='_black'><%= movie.title %></a><span style="font-size: 10px;"><豆瓣评分：<%= movie.rate %>></span>
+						</div>
+					</div>
+			<% }) %>
+		</div>
+	</div>
+</body>
+</html>

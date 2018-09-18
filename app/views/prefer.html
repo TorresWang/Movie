@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="list">
+			<div id="findbycate">
+				<strong>类型：</strong>
+				<ul class="nav nav-pills">
+				<li><a class="findall" href="/index/0/1"><strong>全部</strong></a></li>
+				<% moviecates.forEach(function(moviecate){ %>
+						<li><a class='cate' href="/index/-1/1?msg=<%= moviecate %>"><%= moviecate %></a></li>
+				<% }) %>
+				</ul>
+			</div>
+			<div class="clear"></div> 
+			<div id="findbylocation">
+				<strong>国家：</strong>
+				<ul class="nav nav-pills">
+				<li><a class="findall" href="/index/0/1"><strong>全部</strong></a></li>
+				<% countrys.forEach(function(country){ %>
+						<li><a class='location' href="/index/-2/1?msg=<%= country %>"><%= country %></a></li>
+				<% }) %>
+				</ul>
+			</div>
+			<div class="clear"></div> 
+			<div id="findbyyear">
+				<strong>年份：</strong>
+				<ul class="nav nav-pills">
+				<li><a class="findall" href="/index/0/1"><strong>全部</strong></a></li>
+				<% years.forEach(function(year){ %>
+						<li><a class='year' href="/index/-3/1?msg=<%= year %>"><%= year %></a></li>
+				<% }) %>
+				</ul>
+			</div>
+
+			<div class="clear page-header"></div> 
+			<div id="result"  class='container'>
+				<div><h5>共<%= counts %>条结果</h5></div><br>
+				<div class="row">
+					<% movies.forEach(function(movie){ %>
+						<div class="col-md-4 column ui-sortable">
+							<div class="thumbnail">
+								<img src="../../public/upload/<%= movie.poster %>">
+								<a class="caption" href="/detail/<%= movie.movieID %>" target='_black'><%= movie.movieName %></a><span style="font-size: 10px;"><豆瓣评分：></span>
+							</div>
+						</div>
+					<% }) %>
+				</div>
+			</div>
+			<div class="clear page-header"></div> 
+		</div>
+
+		<div id="pagination">
+			<ul class="pagination">
+				<% if(currentpage == 1){ %>
+					<li><a href="#">&laquo;</a></li>
+				<% }else{ %>	
+					<li><a href="/index/<%= c %>/<%=(currentpage-1)%>?msg=<%= msg%>">&laquo;</a></li>
+				<% } %>
+
+				<% for(var i=1;i<= totalpage;i++){ %>
+					<li><a href="/index/<%= c %>/<%= i %>?msg=<%= msg%>"><%= i %></a></li>
+				<% } %>
+
+				<% if(currentpage == totalpage || totalpage==0){ %>
+					<li><a href="#">&raquo;</a></li>
+				<% }else{ %>
+					<li><a href="/index/<%= c %>/<%=(currentpage+1)%>?msg=<%= msg%>">&raquo;</a></li>
+				<% } %>
+			</ul>
+		</div>
+</body>
+</html>

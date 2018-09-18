@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#whole{width: 850px;border: solid 1px blue; margin: 0 auto}
+		h2 {text-align: center;}
+		#menu{width:150px;margin:10px 0 0 0;border:dashed 1px #ccc; float: left}
+		#content{width:686px;margin: 10px 0 0 10px;border:dashed 1px #ccc; float:left;}
+	</style>
+	<title>admin edit</title>
+</head>
+<body>
+	<div id="whole">
+		<h2>管理员界面</h2>
+		<div id="menu">
+			<ul>
+				<li><a id="userinfo" href="userinfo" target="right">注册用户</a></li>
+				<li><a id="movieinfo" href="movieinfo" target="right">电影信息</a></li>
+				<li>...</li>
+			</ul>
+		</div>
+		<iframe id="content" name="right" src="/default">
+		</iframe>
+	</div>
+</body>
+</html>

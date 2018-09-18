@@ -1,0 +1,7 @@
+[2018-09-18T09:32:23.072] [INFO] default - ::1 - - "GET /index/0/1 HTTP/1.1" 302 56 "" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"
+[2018-09-18T09:32:23.534] [INFO] default - ::1 - - "GET /login HTTP/1.1" 304 - "" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"
+[2018-09-18T09:32:29.581] [INFO] default - ::1 - - "GET /favicon.ico HTTP/1.1" 404 150 "http://localhost:8080/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"
+[2018-09-18T09:34:51.587] [INFO] default - ::1 - - "GET /login HTTP/1.1" 304 - "" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"
+[2018-09-18T09:35:09.337] [INFO] default - ::1 - - "GET /login HTTP/1.1" 304 - "" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"
+[2018-09-18T09:35:16.467] [INFO] default - ::1 - - "GET /checkuser?username=wjy&pwd=123 HTTP/1.1" 302 62 "http://localhost:8080/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"
+[2018-09-18T09:35:16.786] [INFO] default - ::1 - - "GET /index/0/1 HTTP/1.1" 200 8083 "http://localhost:8080/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36"

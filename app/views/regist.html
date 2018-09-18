@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/bootstrap.min.css" media="screen">
+	<style type="text/css">
+		#whole{margin:30px 0 0 50px;}
+		#container{width:800px;margin:20px 0 0 50px;}
+		input{margin:5px;}
+		.btn{margin-left: 10px}
+	</style>
+	<title>填写注册信息</title>
+</head>
+<body>
+<div id="whole">
+	<form action="" method="get" onsubmit="return false">
+		<div id= "container">
+			用户名：<input type="text" id="username"><br>
+			密&nbsp&nbsp&nbsp&nbsp码：<input type="password" id="pwd"><br>
+			确认密码：<input type="password" id="repwd"><br>
+			<input class="btn btn-primary" type="submit" id="register" value="注册">
+		</div>
+	</form>
+	</div>
+	<script type="text/javascript" src="../../public/javascripts/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript">
+
+		$(function(){
+			// $('#login').click(function(){
+			// 	location.href = 'login'
+			// })
+			$('#register').click(function(){
+				var username = $('#username').val();
+				var password = $('#pwd').val();
+				var repassword = $('#repwd').val();
+				if (username ==""){
+					$('#username').css('border','1px solid red');
+					return false;
+				}
+				if (password ==""){
+					$('#pwd').css('border','1px solid red');
+					return false;
+				}
+				if (repassword ==""){
+					$('#repwd').css('border','1px solid red');
+					return false;
+				}
+				if (repassword !== password) {
+					$('#pwd').css('border','1px solid red');
+					$('#repwd').css('border','1px solid red');
+				}else{
+					var data = {"username":username,"password":password};
+					$.ajax({
+						url:'/signup',
+						type:'get',
+						data: data,
+						success:function(data,status){
+							console.log('注册'+username+'成功！'+status);
+							location.href = 'login';
+						},
+						error:function(data,error){
+							location.href = 'regist';
+						}
+					})
+				}
+			})
+		})
+	</script>
+</body>
+</html>

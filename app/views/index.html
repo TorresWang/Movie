@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/bootstrap.min.css" media="screen">
+	<style type="text/css">
+		#whole{width:1170px;}
+		#title{margin:10px 0px 10px 80px;width: 400px;float: left}
+		#title h2{padding-left: 100px}
+		#search{width:230px;margin:35px 0px 10px 10px;float: left;}
+		#login{margin:40px 10px 10px 0px;width:250px;float: left}
+		.clear{clear:both;}
+		#list,#playing{margin-left: 80px;margin-top:10px;}
+		.nav{margin-left: 80px}
+		#list li{list-style-type:none;margin-left:20px;float: left}
+		#result{margin-top:10px }
+		.column{width: 190px;height:230px;padding: 10px}
+		#pagination{width:600px;margin:0 auto}
+		
+		#box{width:300px;position: fixed;bottom: 20px;right: 25px;overflow: hidden;}
+	</style>
+	<title>Movie WebSite</title>
+</head>
+<body>
+
+	<div id='whole'>
+		<div id='title'  class="page-header">
+			<h3 class="glyphicon glyphicon-expand">电影网</h3>
+		</div>
+		<div id="search">
+			<input id="searchtext">
+			<button id="searchbut" class="btn btn-primary btn-sm">搜索</button>
+		</div>
+		<div id='login'>
+			<strong id='welcome'>Welcome,</strong>
+			<strong id='loginname'><%- username %> !</strong>
+			<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModel">Signin</button>
+			<strong id='logout'><a href="/logout">→Logout</a></strong>
+		</div>
+		<div class="clear"></div>
+		<ul class='nav nav-tabs'>
+			<li class='active'><a href='/index/0/1'>想看</a></li>
+			<li><a href='/playing'>热映</a></li>
+		</ul>
+		<% if(nav=='prefer' ){ %>
+			<% include prefer.html %>
+		<% }else{ %>
+			<% include playing.html %>
+		<% } %>
+		<div id='box'>
+			<fieldset>
+			<legend>MiuMiu，<strong id='nickname'><%- username %></strong></legend>
+		        <div class="content" id="chat">
+		            <ul id="chat_conatiner">
+		            </ul>
+		        </div>
+		        <div class="action">
+		            <textarea class="textarea"></textarea><br>
+		            <button class="btn btn-success" id="clear">清屏</button>
+		            <button class="btn btn-success" id="send">发送</button>
+		        </div>
+	    	</fieldset>
+		</div>
+	</div>
+
+<!-- 	<div class="model fade" id="myModel"  id="myModal" tabindex="1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		 <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
+            </div>
+            <div class="modal-body">在这里添加一些文本</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal --> 
+	</div>
+	<script type="text/javascript" src="../../public/javascripts/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/drag.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#searchbut').click(function(){
+				 location.href = "/index/3/1?msg="+$('#searchtext').val()
+			})
+		
+			$('#box').each(function(){
+				$(this).dragging({
+					move : 'both',
+					randomPosition : false,
+				});
+			});	
+			$('.textarea').click(function(){
+				$('.textarea').focus()
+			})
+
+
+			$('#myModel').modal('hide').css({
+				'margin-top': function () {
+					return -($(this).height()* 4);
+				}
+				
+			});
+
+
+			//******************************实时聊天start*************************************************
+			var socket = io.connect('http://localhost:8080');
+			socket.on('connect',function(){
+				var nickname = $("#nickname").text();
+				socket.emit('join',nickname);
+			})
+			socket.on('announcement',function(from,msg){
+				addMessage(from,msg);
+			})
+			socket.on('sendmessage',function(from,msg){
+				addMessage(from,msg);
+			})
+			var sendMsg = function(msg){
+				socket.emit('sendmessage',msg);
+			}
+			var addMessage = function(from,msg){
+				var li = document.createElement('li');
+				li.innerHTML = '<span>'+from+'</span>'+':'+msg;
+				document.querySelector('#chat_conatiner').appendChild(li);
+				//设置内容区的滚动条到最底部
+				document.querySelector('#chat').scrollTop = document.querySelector('#chat').scrollHeight;
+				//并设置焦点
+				document.querySelector('textarea').focus();
+			}
+			var send = function(){
+				var ele_msg = document.querySelector('textarea');
+				var msg = ele_msg.value.replace('\r\n','').trim();
+				if(!msg) return;
+				sendMsg(msg);
+				addMessage('You',msg);
+				ele_msg.value = '';
+			}
+
+			document.querySelector('#send').addEventListener('click', function(){
+	            send();
+	        });
+	        document.querySelector('#clear').addEventListener('click',function(){
+	        	document.querySelector('#chat_conatiner').innerHTML='';
+	        })
+
+	        document.querySelector('textarea').addEventListener('keypress', function(event){
+	            if(event.which == 13){
+	                send();
+	            }
+	        });
+	        document.querySelector('textarea').addEventListener('keydown', function(event){
+	            if(event.which == 13){
+	                send();
+	            }
+	        });
+	          //******************************实时聊天end*************************************************
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link type="text/css" href="../../public/stylesheets/bootstrap.min.css" media="screen" rel="stylesheet" >
+	<style type="text/css">
+		#whole{width:1000px; margin: 0 auto}
+		#detail{width: 480px;float: left;}
+		#new{float:left;width: 300px;}
+		#moviecate{float:left;width: 200px;}
+		th{padding: 5px}
+		td{padding-left:2px}
+
+	</style>
+	
+	<title>电影列表</title>
+</head>
+<body>
+	<div id="whole">
+		<div id="detail">
+			<fieldset>
+				<legend>电影列表</legend>
+				<table id="list" class="table table-striped">
+				<th>MovieId</th>
+				<th>MovieName</th>
+				<th>MovieCate</th>
+				<th>Country</th>
+				<th>Year</th>
+				<th>operation</th>
+					<% movies.forEach(function(movie){ %>
+						<tr>
+							<td><%= movie.movieID %></td>
+							<td><%= movie.movieName %></td>
+							<td><%= movie.moviecate %></td>
+							<td><%= movie.country %></td>
+							<td><%= movie.year %></td>
+							<td>
+								<a href="/delete/<%= movie.movieID %>">
+								<span class="glyphicon glyphicon-remove"></span>delete
+								</a>
+							</td>
+						</tr>
+					<% }) %>
+				</table>
+				<ul class="pagination" id="pagination">共<%= totalpage %>页，每页<%=pagesize%>条，当前第<%=currentpage%>页
+				<% if(currentpage==1){ %>
+					<a href="#">上一页</a>
+				<% }else{ %>	
+					<a href="/movieinfo/<%=(currentpage-1)%>">上一页</a>
+				<% } %>
+				<% if(currentpage==totalpage || totalpage==0){ %>
+					<a href="#">下一页</a>
+				<% }else{ %>	
+					<a href="/movieinfo/<%=(currentpage+1)%>">下一页</a>
+				<% } %>
+				
+				</ul>
+			</fieldset>
+		</div>
+		<div id="new" >
+			<form action="/createMovie" method="post" enctype="multipart/form-data">
+				<fieldset>
+					<legend>新增电影信息</legend>
+						<input type="text"  name="movieID" id="movieId">MovieID<br>
+						<input type="text"  name="movieName"  id="moviename">电影名称<br>
+						<select  name="moviecate" style="width:159px">
+							<option></option>
+							<% moviecates.forEach(function(moviecate){%>
+							<option><%= moviecate.moviecatename %></option>
+						<%})%>
+						</select>电影类型<br>
+						<input type="text"   name="country" id="country">国家<br>
+						<input  type="text"  name="year" id="year">年代<br>
+						<input  type="text"  name="time" id="time">时长<br>
+						<input type="text"  name="introduce"  id="introduce">简介<br>
+						<input type="text" name="posterurl" id="posterurl">海报地址<br>
+						<input type="file"  name="uploadPoster" id="uploadPoster">上传<br>
+						<input id="addmovie" type="submit" value="添加电影">
+				</fieldset>
+			</form>
+		</div>
+		<div id="moviecate" >
+		<form action="/addmoviecate" method="get">
+			<fieldset>
+				<legend>电影类型管理</legend>
+					<ul>
+					<% moviecates.forEach(function(moviecate){%>
+						<li><%= moviecate.moviecatename %><a href="/deletemoviecate?msg=<%= moviecate.moviecatename %>"> <span class="glyphicon glyphicon-remove"></span></a></li>
+					<%})%>
+					</ul>
+					<input name="moviecatename">
+					<input id="addmoviecate" type="submit" value="添加电影类型">
+			</fieldset>
+		</form>
+		</div>
+	</div>
+	<script type="text/javascript" src="../../public/javascripts/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/bootstrap.min.js"></script>
+</body>
+</html>  

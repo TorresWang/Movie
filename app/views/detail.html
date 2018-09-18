@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" href="../../public/stylesheets/bootstrap.min.css" media="screen">
+	<script type="text/javascript" src="../../public/javascripts/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="../../public/javascripts/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			// var url = window.location.href;
+			// var para = url.split("=");
+			// var data = {movieID:para[1]}
+			// if (para[1]){
+			// 	$.ajax({
+			// 		url:'/detail',
+			// 		type:'get',
+			// 		data:data,
+			// 		success:function(data,status){
+			// 			console.log(data)
+			// 		},
+			// 		error:function(error,status){
+			// 			console.log(error)
+			// 		}
+			// 	})
+			// }
+			//var para = url.split(/[=&]/);
+			// console.log(para);
+			// $("#moviename").text(decodeURI(para[3]));
+			// $("#country").text(para[5]);
+			// $("#year").text(para[7]);
+			// $("#time").text(para[9]);
+			// $("#introduce").text(decodeURI(para[11]));
+		})
+	</script>
+	<style type="text/css">
+		#whole{width:800px; margin: 0 auto}
+		#whole h2 {text-align: center; }
+		#introduce table{margin:0 0 0 20px; border:dashed 1px #ccc;font-size:12px}
+	</style>
+	<title>Movie Detail</title>
+</head>
+<body>
+<div id="whole">
+	<fieldset>
+		<legend>电影详情</legend>
+		<table id='detail'>
+			<tr>
+				<td>名称:</td>
+				<td id="moviename"><%- moviename %></td>
+			</tr>
+			<tr>
+				<td>类型:</td>
+				<td id="country"><%- moviecate %></td>
+			</tr>
+			<tr>
+				<td>国家:</td>
+				<td id="country"><%- country %></td>
+			</tr>
+			<tr>
+				<td>年代:</td>
+				<td id="year"><%- year %></td>
+			</tr>
+			<tr>
+				<td>时长:</td>
+				<td id="time"><%- time %></td>
+			</tr>
+			<tr>
+				<td>简介:</td>
+				<td id="introduce"><%- introduce %></td>
+			</tr>
+			<tr>
+				<td>预告片</td>
+				<td><video src='' controls="controls"></video></td>
+			</tr>
+		</table>
+	</fieldset>
+</div>
+</body>
+</html>
